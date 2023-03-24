@@ -7,6 +7,8 @@ namespace ariel{
     int Player::cardesTaken(){return 0;};
     void Player::addCard(Card c){};
     Card Player::playCard(){
-        return Card(1,'A');
+        Card card =  Player::hand.back();
+        Player::hand.pop_back();
+        return card;
     };
 }
