@@ -60,7 +60,6 @@ void deal(Player a, Player b, vector<Card> deck)
    }
 }
 
-
 // stdout checks
 #define BUFFER_SIZE 1024
 int stdoutSave;
@@ -121,6 +120,7 @@ TEST_CASE("player acccept cards test"){
   Player p1("Aharon");
   Card card(1,'A');
 }
+//as named
 TEST_CASE("full deck deal without game test case") {
   vector<Card> deck = createDeck();
   deck = shuffle_deck(deck);
@@ -185,13 +185,59 @@ TEST_CASE("forced win for Barak test case")
   restoreStdout();
 }
 
-TEST_CASE("no 2 games simulatously test case"){
+// TEST_CASE("no 2 games simulatously test case"){
+//   Player p1("Aharon");
+//   Player p2("Barak");
+//   Player p2("gili");
+//   CHECK_NOTHROW(Game g1(p1,p2));
+//   // should throw but didn't find test case for that
+//   // CHECK_THROWS(Game::Game(p1,p3));
+
+// }
+
+TEST_CASE("test game output values"){
+  vector<Card> deck = createDeck();
+  deck = shuffle_deck(deck);
   Player p1("Aharon");
   Player p2("Barak");
-  Player p2("gili");
-  CHECK_NOTHROW(Game g1(p1,p2));
-  // should throw but didn't find test case for that
-  // CHECK_THROWS(Game::Game(p1,p3));
+  deal(p1, p2, deck);
+  Game g(p1,p2);
 
+  replaceStdout();
+  SUBCASE("last turn printer"){
+    g.playTurn();
+    g.printLastTurn();
+    string output(outputBuffer);  
+    CHECK_NE(output.find("Aharon played"),std::string::npos);
+    CHECK_NE(output.find("Barak played"),std::string::npos);
+    bool result = (output.find("wins") != std::string::npos &&
+                output.find("DRAW") != std::string::npos);
+    CHECK(result);
+    fflush(stdout); //clean everything
+  }
+  SUBCASE("stats printer"){
+    g.playTurn();
+    g.playTurn();
+    g.printStats();
+    string output(outputBuffer);
+    int place_found = output.find("win rate");
+    CHECK_NE(place_found,std::string::npos);
+    int place_found = output.find("win rate",place_found + 1);
+    CHECK_NE(place_found,std::string::npos);
+
+    int place_found = output.find("cards won");
+    CHECK_NE(place_found,std::string::npos);
+    int place_found = output.find("cards won",place_found + 1);
+    CHECK_NE(place_found,std::string::npos);
+
+    CHECK_NE(output.find("draw rate"),std::string::npos);
+    CHECK_NE(output.find("amount of draws"),std::string::npos);
+  }
+  SUBCASE("log printer"){
+    g.playAll();
+    g.printLog();
+    // @todo write some assertions
+  }
+
+  
 }
-
