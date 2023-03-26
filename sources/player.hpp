@@ -17,5 +17,4 @@ namespace ariel{
         std::string name;
     };
 };
-
 #endif //WAR_PLAYER_HPP

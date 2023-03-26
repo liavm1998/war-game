@@ -9,11 +9,4 @@ namespace ariel{
         std::string print();
     };
 };
-
-
-
-
-
-
-
 #endif

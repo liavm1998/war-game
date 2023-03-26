@@ -147,10 +147,15 @@ TEST_CASE("full deck deal without game test case") {
   }
 }
 
+TEST_CASE("game against myself"){
+  Player p("Aharon");
+  CHECK_THROWS(Game (p, p));
+}
+
 TEST_CASE("Create game test"){
   Player p1("Aharon");
   Player p2("Barak");
-  CHECK_NOTHROW(Game g1(p1,p2));
+  CHECK_NOTHROW(Game (p1,p2));
 }
 
 TEST_CASE("game functions not throws test"){
@@ -257,7 +262,5 @@ TEST_CASE("test game output values"){
                 output.find("DRAW") != std::string::npos);
     CHECK(result);
     fflush(stdout); //clean everything
-  }
-  
-  
+  } 
 }

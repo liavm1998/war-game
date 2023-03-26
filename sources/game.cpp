@@ -1,4 +1,3 @@
-#include "player.hpp"
 #include "game.hpp"
 namespace ariel{
     using namespace std;

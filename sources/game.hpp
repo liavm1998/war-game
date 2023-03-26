@@ -1,5 +1,6 @@
 #ifndef WAR_GAME_HPP
 #define WAR_GAME_HPP
+#include "player.hpp"
 
 namespace ariel{
     class Game{
@@ -13,5 +14,4 @@ namespace ariel{
         void printStats();
     };
 };
-
 #endif
