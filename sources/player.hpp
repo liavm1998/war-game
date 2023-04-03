@@ -6,15 +6,17 @@
 #include "card.hpp"
 namespace ariel{
     class Player{
-        public:
-        Player(std::string name);
-        int stacksize();
-        int cardesTaken();
-        void addCard(Card card);
-        Card playCard();
+        private:
+            std::vector<Card> stack;
+            std::string name;
+            int cards_taken;
 
-        std::vector<Card> hand;
-        std::string name;
+        public:
+            Player(std::string name);
+            int stacksize();
+            int cardesTaken();
+            void addCard(Card card);
+            Card playCard();
     };
 };
 #endif //WAR_PLAYER_HPP

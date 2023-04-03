@@ -4,7 +4,7 @@
 #include "sources/game.hpp"
 #include "sources/card.hpp"
 using namespace std;
-
+using namespace ariel;
 TEST_CASE("The amount of cards before starting a game")
 {
     Player p1("Alice");
