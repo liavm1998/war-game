@@ -18,12 +18,11 @@ namespace ariel{
             int stacksize();
             int cardesTaken();
             void addCard(Card card);
-            void round_win(int card_won);
             Card playCard();
             std::string turn_for_log(Card card);
             std::string get_name();
             void print_stats();
-            void add_round(int didwon);
+            void add_round(int cards_won);
     };
 };
 #endif //WAR_PLAYER_HPP

@@ -45,7 +45,7 @@ TEST_CASE("Throwing errors from the functions")
     Player p1("Alice");
     Player p2("Bob");
     Game game(p1, p2);
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 15; i++)
     {
         game.playTurn();
     }
@@ -95,13 +95,14 @@ TEST_CASE("The game ends after at most 26 turns")
     Player p1("Alice");
     Player p2("Bob");
     Game game(p1, p2);
-    bool maxTurns = 26;
-
-    for (int i = 0 ; i <= 26 ; i++ && p1.stacksize()>=0)
+    int maxTurns = 26;
+    int i = 0;
+    for ( ; i <= 26 && p1.stacksize()>0; i++)
     {
+        cout << i << ") " << p1.stacksize() << " " << (p1.stacksize()>=0)<<"\n";
         game.playTurn();
     }
-    CHECK(maxTurns == 26);
+    CHECK( i<= maxTurns);
     CHECK(p1.stacksize() == 0);
     CHECK(p2.stacksize() == 0);
 }

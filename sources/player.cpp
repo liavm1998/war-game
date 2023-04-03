@@ -2,15 +2,12 @@
 #include "card.hpp"
 #include <string>
 #include <iostream>
+#include <vector>
+#include "../doctest.h"
 using namespace std;
 namespace ariel{
-
-    
     Player::Player(std::string name){
         this->name = name;
-        // if(!this->hand.empty()){
-        //     throw "player already playing";
-        // }
         this->stack.clear();
         this->cards_taken = 0;
         this->rounds_played = 0;
@@ -40,18 +37,25 @@ namespace ariel{
         return this->name;
     }
 
-    void Player::round_win(int card_won){
-        this->cards_taken += card_won;
-        this->rounds_played++;
+    void Player::add_round(int cards_won) {
+        this->rounds_played +=1;
+        if(cards_won){
+            this->cards_taken += cards_won;
+            this->rounds_won += 1;
+        }
     }
     
-    void Player::add_round(int didwon){
-        this->rounds_played++;
-    }
+
     void Player::print_stats(){
+        cout<< "________________________________" << "\n";
         cout<< this->name << " stats report" << "\n";
-        cout<< "________________________________";
-        cout<< "win rate: " << (this->rounds_won/this->rounds_played) << "\n";
+        cout<< "________________________________" << "\n";
+        cout << "cards_taken :"<< this->cards_taken << "\n";
+        cout << "rounds_won "<< this->rounds_won << "\n";
+        cout << "rounds_played "<< this->rounds_played << "\n";
+        double win_rate = this->rounds_won;
+        win_rate /= this->rounds_played;
+        cout<< "win rate: " << win_rate << "\n";
         cout << "cards won: " << this->cards_taken <<"\n";
     }
 }
