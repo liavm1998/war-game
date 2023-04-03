@@ -9,6 +9,8 @@ namespace ariel{
         private:
             std::vector<Card> stack;
             std::string name;
+            int rounds_won;
+            int rounds_played;
             int cards_taken;
 
         public:
@@ -16,7 +18,12 @@ namespace ariel{
             int stacksize();
             int cardesTaken();
             void addCard(Card card);
+            void round_win(int card_won);
             Card playCard();
+            std::string turn_for_log(Card card);
+            std::string get_name();
+            void print_stats();
+            void add_round(int didwon);
     };
 };
 #endif //WAR_PLAYER_HPP
