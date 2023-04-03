@@ -5,6 +5,7 @@
 #include "sources/card.hpp"
 #include <iostream>
 using namespace std;
+
 using namespace ariel;
 TEST_CASE("The amount of cards before starting a game")
 {
