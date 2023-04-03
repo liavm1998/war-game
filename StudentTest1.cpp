@@ -3,6 +3,7 @@
 #include "sources/player.hpp"
 #include "sources/game.hpp"
 #include "sources/card.hpp"
+#include <iostream>
 using namespace std;
 using namespace ariel;
 TEST_CASE("The amount of cards before starting a game")
@@ -94,7 +95,7 @@ TEST_CASE("The game ends after at most 26 turns")
     Player p2("Bob");
     Game game(p1, p2);
     bool maxTurns = 26;
-    
+
     for (int i = 0 ; i <= 26 ; i++ && p1.stacksize()>=0)
     {
         game.playTurn();

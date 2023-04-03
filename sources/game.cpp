@@ -6,6 +6,12 @@ using namespace std;
 
 
 Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
+    if (&p1 == &p2){
+        this->same_player = true;
+    }
+    else{
+        this->same_player = false;
+    }
     vector<Card> deck;
     // Create all 52 cards and add them to the deck
     for (int i = 1; i <= 13; i++) {
@@ -18,8 +24,8 @@ Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
     random_shuffle(deck.begin(), deck.end());
     // Deal 26 cards each to both players 
    for (unsigned long int i = 0; i < 26; i++) {
-    p1.addCard(deck[i]);
-    p2.addCard(deck[i + 26]);
+    this->p1.addCard(deck[i]);
+    this->p2.addCard(deck[i + 26]);
    }
 };
     
@@ -28,8 +34,11 @@ Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
         
     void Game::playTurn()
     {
-        if(this->p1.stacksize() == 0){
-            throw "error";
+        if (this->same_player){
+            throw "no games against yourself";
+        }
+        if(this->p1.stacksize() == 0 || this->p2.stacksize() == 0){
+            throw "no more cards to play";
         }
         std::string log = "";
         int cont = 1;

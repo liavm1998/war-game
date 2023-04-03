@@ -23,10 +23,10 @@ namespace ariel{
     int Player::cardesTaken()
     {
         return this->cards_taken;
-    };
+    }
     void Player::addCard(Card c){
         this->stack.push_back(c);
-    };
+    }
     Card Player::playCard(){
         Card card =  Player::stack.back();
         Player::stack.pop_back();
