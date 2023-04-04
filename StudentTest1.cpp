@@ -99,7 +99,6 @@ TEST_CASE("The game ends after at most 26 turns")
     int i = 0;
     for ( ; i <= 26 && p1.stacksize()>0; i++)
     {
-        cout << i << ") " << p1.stacksize() << " " << (p1.stacksize()>=0)<<"\n";
         game.playTurn();
     }
     CHECK( i<= maxTurns);

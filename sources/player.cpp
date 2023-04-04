@@ -58,4 +58,8 @@ namespace ariel{
         cout<< "win rate: " << win_rate << "\n";
         cout << "cards won: " << this->cards_taken <<"\n";
     }
+
+
+
+
 }
