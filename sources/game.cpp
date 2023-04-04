@@ -106,6 +106,7 @@ Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
             playTurn();
         }
     };
+
     void Game::printWiner(){
         if(p1.cardesTaken() > p2.cardesTaken()){
             cout << p1.get_name() + " won";
