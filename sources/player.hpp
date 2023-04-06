@@ -25,31 +25,31 @@ namespace ariel{
             void add_round(int cards_won);
 
 
-            /////// for make tidy
-            // destructor
-            ~Player(){
-                stack.shrink_to_fit();
-                stack.clear();
-            }
-            //// copy constructor
-            Player(const Player& other);
-            /////// copy opertator
-            Player& operator=(Player other){
-                std::swap(name, other.name);
-                return *this;
-            };
-            ///// move constructor
-            Player(const Player&& other) noexcept{
-                this->name = "demo";
-                this->stack.clear();
-                this->rounds_played=0;
-                this->rounds_won=0;
-                this->cards_taken=0;
-            };
-            ///// move assigment operator
-            Player& operator=(Player&& other) noexcept{
-                return *this;
-            };
+            // ///////just for practice
+            // // destructor
+            // ~Player(){
+            //     stack.clear();
+            //     stack.shrink_to_fit();
+            // }
+            // //// copy constructor
+            // Player(const Player& other);
+            // /////// copy opertator
+            // Player& operator=(Player other){
+            //     std::swap(name, other.name);
+            //     return *this;
+            // };
+            // ///// move constructor
+            // Player(const Player&& other) noexcept{
+            //     this->name = "demo";
+            //     this->stack.clear();
+            //     this->rounds_played=0;
+            //     this->rounds_won=0;
+            //     this->cards_taken=0;
+            // };
+            // ///// move assigment operator
+            // Player& operator=(Player&& other) noexcept{
+            //     return *this;
+            // };
 
     };
 };
