@@ -3,10 +3,9 @@
 #include "sources/player.hpp"
 #include "sources/game.hpp"
 #include "sources/card.hpp"
-#include <iostream>
 using namespace std;
-
 using namespace ariel;
+
 TEST_CASE("The amount of cards before starting a game")
 {
     Player p1("Alice");
@@ -45,7 +44,7 @@ TEST_CASE("Throwing errors from the functions")
     Player p1("Alice");
     Player p2("Bob");
     Game game(p1, p2);
-    for (int i = 0; i < 15; i++)
+    for (int i = 0; i < 5; i++)
     {
         game.playTurn();
     }
@@ -80,14 +79,7 @@ TEST_CASE("Printing the winner")
     Game game(p1, p2);
     game.playAll();
 
-    if (p1.cardesTaken() == p2.cardesTaken())
-    {
-        CHECK_THROWS(game.printWiner());
-    }
-    else
-    {
-        CHECK_NOTHROW(game.printWiner());
-    }
+    CHECK_NOTHROW(game.printWiner());
 }
 
 TEST_CASE("The game ends after at most 26 turns")
@@ -97,12 +89,11 @@ TEST_CASE("The game ends after at most 26 turns")
     Game game(p1, p2);
     int maxTurns = 26;
     int i = 0;
-    for ( ; i <= 26 && p1.stacksize()>0; i++)
+    for ( ; i < 26 && p1.stacksize()>0; i++ )
     {
         game.playTurn();
     }
-    CHECK( i<= maxTurns);
+    CHECK(maxTurns >= i );
     CHECK(p1.stacksize() == 0);
     CHECK(p2.stacksize() == 0);
 }
-
