@@ -9,12 +9,6 @@ using namespace std;
 Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
     this->draws = 0;
     this->rounds = 0;
-    if (&p1 == &p2){
-        this->same_player = true;
-    }
-    else{
-        this->same_player = false;
-    }
     vector<Card> deck;
     // Create all 52 cards and add them to the deck
     for (int i = 1; i <= 13; i++) {
@@ -34,8 +28,8 @@ Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
 }
     void Game::playTurn()
     {
-        if (this->same_player){
-            throw "no games against yourself";
+         if (&p1 == &p2){
+           throw "no games against yourself";
         }
         if(p1.stacksize() == 0 || p2.stacksize() == 0){
             throw "no more cards to play";
@@ -47,9 +41,23 @@ Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
             this->rounds+=1;
             cont = 0;
             // getting the cards
-            Card p1card = this->p1.playCard();
-            Card p2card = this->p2.playCard();
-            cards_won+=2;
+            Card p1card;
+            Card p2card;
+            try{
+                    Card p1card = this->p1.playCard();
+                    Card p2card = this->p2.playCard();    
+                    cards_won+=2;
+                }
+            catch (exception e)
+            {
+                if(cards_won == 0){
+                    throw "no more cards to play";
+                }
+                // no more card to draw everyone get the card he throws
+                p1.add_round(cards_won/2);
+                p2.add_round(cards_won/2);
+                goto round_end;
+            }
             // setting the first part of the log;
             log += p1.turn_for_log(p1card) + " " + p2.turn_for_log(p2card) + ". ";
             // find the winner
@@ -57,13 +65,22 @@ Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
             // draw case
             if(p1card.get_value() == p2card.get_value())
             {
+                this->draws +=1;
                 cont = 1;
                 log += "Draw.";
                 //for poping
-                this->p1.playCard();
-                this->p2.playCard();
-                cards_won+=2;
-                this->draws +=1;
+                try{
+                    this->p1.playCard();
+                    this->p2.playCard();    
+                    cards_won+=2;
+                }
+                catch (exception e){
+                    // no more card to draw everyone get the card he throws
+                    p1.add_round(cards_won/2);
+                    p2.add_round(cards_won/2);
+                    cont = 0;
+                }
+
             }
             //  ace wins against all except for 2 cases
             else if(p1card.get_value() == 1 && p2card.get_value() != 2)
@@ -91,6 +108,7 @@ Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
                 p1.add_round(0);
             }
         }
+        round_end:
         log+="\n"; // round end
         this->logs.push_back(log);
     };
