@@ -115,7 +115,7 @@ Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
             cout << p1.get_name() + " won";
         }
         else
-            throw "no winner";
+            cout << "no winner";
     };
     void Game::printLog(){
         for(std::string log : this->logs){
