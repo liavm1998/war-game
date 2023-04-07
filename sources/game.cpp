@@ -64,13 +64,12 @@ Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
             // draw case
             if(p1card.get_value() == p2card.get_value())
             {
-                this->draws +=1;
                 cont = 1;
                 log += "Draw.";
                 //for poping
                 try{
                     this->p1.playCard();
-                    this->p2.playCard();    
+                    this->p2.playCard();
                     cards_won+=2;
                 }
                 catch (exception e){

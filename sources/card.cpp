@@ -4,7 +4,7 @@ namespace ariel{
     // default constructor for myself
     Card::Card(){
         this->sign=HEARTS;
-        this->val=12;
+        this->val=-1;
     };
     Card::Card(int val, Sign sign){
         this->sign=sign;
