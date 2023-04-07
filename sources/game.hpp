@@ -12,7 +12,6 @@ namespace ariel{
             std::string get_round_log();
             int draws;
             int rounds;
-            bool same_player;
         public:
         Game(Player& p1, Player& p2);
         void playTurn();

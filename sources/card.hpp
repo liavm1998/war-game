@@ -12,6 +12,7 @@ namespace ariel{
             std::string get_string_sign();
             std::string get_string_value();
         public:
+            Card();
             Card(int val, Sign sign);
             std::string to_string();
             int get_value();

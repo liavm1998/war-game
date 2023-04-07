@@ -34,3 +34,6 @@ $(OBJECT_PATH)/%.o: $(SOURCE_PATH)/%.cpp $(HEADERS)
 
 clean:
 	rm -f $(OBJECTS) *.o test* demo*
+
+main:  $(OBJECTS) StudentTest1.o
+	$(CXX) $(CXXFLAGS) $^ -o $@
