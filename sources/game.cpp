@@ -36,8 +36,7 @@ Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
     shuffle_deck(deck);
     deal(deck,p1,p2);
 }
-    void Game::playTurn()
-    {
+    void Game::playTurn(){
          if (&p1 == &p2){
            throw "no games against yourself";
         }
@@ -53,14 +52,12 @@ Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
             // getting the cards
             Card p1card;
             Card p2card;
-            if(this->p1.stacksize() > 0 && this->p2.stacksize()>0)
-            {
+            if(this->p1.stacksize() > 0 && this->p2.stacksize()>0){
                 p1card = this->p1.playCard();
                 p2card = this->p2.playCard();
                 cards_won+=2;
             }
-            else
-            {
+            else{
                 if(cards_won == 0){
                     throw "no more cards to play";
                 }
@@ -71,8 +68,6 @@ Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
             }
             // setting the first part of the log;
             log += p1.turn_for_log(p1card) + " " + p2.turn_for_log(p2card) + ". ";
-            // find the winner
-            // draw case
             if(p1card.get_value() == p2card.get_value())
             {
                 cont = 1;
@@ -90,8 +85,7 @@ Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
                     cont = 0;
                 }
             }
-            else if((p1card.get_value() == 1 && p2card.get_value() != 2) || (p1card.get_value() > p2card.get_value()))
-            {   //p1 wins
+            else if((p1card.get_value() == 1 && p2card.get_value() != 2) || (p1card.get_value() > p2card.get_value())){
                 log += this->p1.get_name() + " wins.";
                 p1.add_round(cards_won);
                 p2.add_round(0);
@@ -107,15 +101,13 @@ Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
         this->logs.push_back(log);
     };
     
-    void Game::printLastTurn()
-    {
+    void Game::printLastTurn(){
         cout << this->logs.back();
         cout << this->logs.back(); 
     };
 
     void Game::playAll(){
-        while (this->p1.stacksize() > 0)
-        {
+        while (this->p1.stacksize() > 0){
             playTurn();
         }
     };
@@ -127,8 +119,7 @@ Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
         else if(p1.cardesTaken() < p2.cardesTaken()){
             cout << p1.get_name() + " won";
         }
-        else
-            cout << "no winner";
+        else cout << "no winner";
     };
 
     void Game::printLog(){

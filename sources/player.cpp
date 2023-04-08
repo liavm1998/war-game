@@ -2,7 +2,6 @@
 #include "card.hpp"
 #include <string>
 #include <iostream>
-#include <vector>
 using namespace std;
 namespace ariel{
     Player::Player(std::string name){
@@ -11,27 +10,30 @@ namespace ariel{
         this->cards_taken = 0;
         this->rounds_played = 0;
         this->rounds_won = 0;
-    };
+    }
 
     int Player::stacksize(){
         return stack.size();
-    };
-    int Player::cardesTaken()
-    {
+    }
+
+    int Player::cardesTaken(){
         return this->cards_taken;
     }
+
     void Player::addCard(Card c){
         this->stack.push_back(c);
     }
+
     Card Player::playCard(){
         Card card =  Player::stack.back();
         Player::stack.pop_back();
         return card;
-    };
+    }
 
     std::string Player::turn_for_log(Card card){
         return this->name + " played " + card.to_string();
     }
+
     std::string Player::get_name(){
         return this->name;
     }
@@ -43,7 +45,6 @@ namespace ariel{
             this->rounds_won += 1;
         }
     }
-    
 
     void Player::print_stats(){
         cout<< "________________________________" << "\n";
@@ -57,8 +58,4 @@ namespace ariel{
         cout<< "win rate: " << win_rate << "\n";
         cout << "cards won: " << this->cards_taken <<"\n";
     }
-
-
-
-
 }

@@ -9,7 +9,6 @@ namespace ariel{
             Player& p1;
             Player& p2;
             std::vector<std::string> logs;
-            std::string get_round_log();
             int draws;
             int rounds;
         public:

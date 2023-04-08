@@ -1,8 +1,7 @@
 #include "card.hpp"
 #include <string>
 namespace ariel{
-    // default constructor for myself
-    Card::Card(){
+    Card::Card(){ // default constructor for myself
         this->sign=HEARTS;
         this->val=-1;
     };
@@ -15,21 +14,15 @@ namespace ariel{
         if (this->val == 11){return "Prince";}
         if (this->val == 12){return "Queen";}
         if (this->val == 13){return "King";}
-        //default case
         return std::to_string(this->val);
     };
     std::string Card::get_string_sign(){
         std::string sign;
-        switch (this->sign)
-        {
-        case DIAMONDS:
-            return "Diamonds";
-        case SPADES:
-            return "Spades";
-        case HEARTS:
-            return "Hearts";
-        default:
-            return "Clubs";
+        switch (this->sign){
+        case DIAMONDS: return "Diamonds";
+        case SPADES: return "Spades";
+        case HEARTS: return "Hearts";
+        default: return "Clubs";
         }
     };
 
