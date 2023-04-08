@@ -4,11 +4,8 @@
 namespace ariel{
 using namespace std;
 
-
-Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
-    this->draws = 0;
-    this->rounds = 0;
-    vector<Card> deck;
+void create_deck(vector<Card>& deck){
+    deck.clear();
     // Create all 52 cards and add them to the deck
     for (int i = 1; i <= 13; i++) {
         deck.push_back(Card(i, SPADES)); // Spades
@@ -16,14 +13,28 @@ Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
         deck.push_back(Card(i, DIAMONDS)); // Diamonds 
         deck.push_back(Card(i, CLUBS)); // Clubs 
     }
+
+};
+
+void shuffle_deck(vector<Card>& deck){
     srand(time(NULL)); 
     random_shuffle(deck.begin(), deck.end());
-    // Deal 26 cards each to both players
-   for (unsigned long int i = 0; i < 26; i++) {
+}
+
+void deal(vector<Card>& deck, Player& p1, Player& p2){
+    for (unsigned long int i = 0; i < 26; i++) {
         p1.addCard(deck[i]);
         p2.addCard(deck[i + 26]);
-
    }
+}
+
+Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
+    this->draws = 0;
+    this->rounds = 0;
+    vector<Card> deck;
+    create_deck(deck);
+    shuffle_deck(deck);
+    deal(deck,p1,p2);
 }
     void Game::playTurn()
     {
@@ -42,12 +53,13 @@ Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
             // getting the cards
             Card p1card;
             Card p2card;
-            try{
-                    p1card = this->p1.playCard();
-                    p2card = this->p2.playCard();
-                    cards_won+=2;
-                }
-            catch (exception e)
+            if(this->p1.stacksize() > 0 && this->p2.stacksize()>0)
+            {
+                p1card = this->p1.playCard();
+                p2card = this->p2.playCard();
+                cards_won+=2;
+            }
+            else
             {
                 if(cards_won == 0){
                     throw "no more cards to play";
@@ -55,58 +67,42 @@ Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
                 // no more card to draw everyone get the card he throws
                 p1.add_round(cards_won/2);
                 p2.add_round(cards_won/2);
-                goto round_end;
+                break;
             }
             // setting the first part of the log;
             log += p1.turn_for_log(p1card) + " " + p2.turn_for_log(p2card) + ". ";
             // find the winner
-            
             // draw case
             if(p1card.get_value() == p2card.get_value())
             {
                 cont = 1;
                 log += "Draw.";
                 //for poping
-                try{
+                if(this->p1.stacksize() > 0 && this->p2.stacksize()>0){
                     this->p1.playCard();
                     this->p2.playCard();
                     cards_won+=2;
                 }
-                catch (exception e){
+                else{
                     // no more card to draw everyone get the card he throws
                     p1.add_round(cards_won/2);
                     p2.add_round(cards_won/2);
                     cont = 0;
                 }
-
             }
-            //  ace wins against all except for 2 cases
-            else if(p1card.get_value() == 1 && p2card.get_value() != 2)
-            {
+            else if((p1card.get_value() == 1 && p2card.get_value() != 2) || (p1card.get_value() > p2card.get_value()))
+            {   //p1 wins
                 log += this->p1.get_name() + " wins.";
                 p1.add_round(cards_won);
                 p2.add_round(0);
             }
-            else if(p1card.get_value() != 2 && p2card.get_value() == 1)
-            {
+            else
+            {  //p2 wins
                 log += this->p2.get_name() + " wins.";
                 p2.add_round(cards_won);
                 p1.add_round(0);
             }   
-            
-            // default case by value
-            else if (p1card.get_value() > p2card.get_value()){
-                log += this->p1.get_name() + " wins.";
-                p1.add_round(cards_won);
-                p2.add_round(0);
-            }
-            else if (p2card.get_value() > p1card.get_value()){
-                log += this->p2.get_name() + " wins.";
-                p2.add_round(cards_won);
-                p1.add_round(0);
-            }
         }
-        round_end:
         log+="\n"; // round end
         this->logs.push_back(log);
     };
@@ -116,6 +112,7 @@ Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
         cout << this->logs.back();
         cout << this->logs.back(); 
     };
+
     void Game::playAll(){
         while (this->p1.stacksize() > 0)
         {
@@ -133,11 +130,13 @@ Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
         else
             cout << "no winner";
     };
+
     void Game::printLog(){
         for(std::string log : this->logs){
             cout << log;
         }
     };
+
     void Game::printStats(){
         this->p1.print_stats();
         this->p2.print_stats();
