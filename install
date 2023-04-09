@@ -2,13 +2,12 @@
 # installation that needed to work on workspaces using clang++14
 #
 
+echo "#########clang-tidy install###########"
 wget https://apt.llvm.org/llvm.sh
-echo "just download llvm"
 chmod +x llvm.sh
-echo "llvm is now excutable"
 sh llvm.sh 14 -y
-echo "running llvm"
-set timeout 2
-echo "removing llvm"
+timeout 3
 rm llvm.sh
+echo "clang-tidy install"
+apt install clang-tidy
 echo "finish"
