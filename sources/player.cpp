@@ -50,9 +50,9 @@ namespace ariel{
         cout<< "________________________________" << "\n";
         cout<< this->name << " stats report" << "\n";
         cout<< "________________________________" << "\n";
-        cout << "cards_taken :"<< this->cards_taken << "\n";
-        cout << "rounds_won "<< this->rounds_won << "\n";
-        cout << "rounds_played "<< this->rounds_played << "\n";
+        cout << "cards_taken: "<< this->cards_taken << "\n";
+        cout << "rounds_won: "<< this->rounds_won << "\n";
+        cout << "rounds_played :"<< this->rounds_played << "\n";
         double win_rate = this->rounds_won;
         win_rate /= this->rounds_played;
         cout<< "win rate: " << win_rate << "\n";

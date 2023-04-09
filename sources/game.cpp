@@ -72,6 +72,7 @@ Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
             {
                 cont = 1;
                 log += "Draw.";
+                this->draws++;
                 //for poping
                 if(this->p1.stacksize() > 0 && this->p2.stacksize()>0){
                     this->p1.playCard();
@@ -114,12 +115,12 @@ Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
 
     void Game::printWiner(){
         if(p1.cardesTaken() > p2.cardesTaken()){
-            cout << p1.get_name() + " won";
+            cout << p1.get_name() + " won" << endl;
         }
         else if(p1.cardesTaken() < p2.cardesTaken()){
-            cout << p1.get_name() + " won";
+            cout << p1.get_name() + " won" << endl;
         }
-        else cout << "no winner";
+        else cout << "no winner" << endl;
     };
 
     void Game::printLog(){

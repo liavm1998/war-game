@@ -44,7 +44,7 @@ TEST_CASE("Throwing errors from the functions")
     Player p1("Alice");
     Player p2("Bob");
     Game game(p1, p2);
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 20; i++)
     {
         game.playTurn();
     }
