@@ -123,8 +123,9 @@ Game::Game(Player& p1, Player& p2): p1(p1),p2(p2){
     };
 
     void Game::printLog(){
-        for(std::string log : this->logs){
-            cout << log;
+        for(int i = this->logs.size() - 1; i >= 0; i--)
+        {
+            cout << this->logs.at(i);
         }
     };
 
